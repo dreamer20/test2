@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: create file with key
         run: echo "${{ secrets.SSH_KEY }}" > id_rsa
+      - name: add known hosts
+        run: echo "${{ secrets.KNOWN_HOSTS }}" > ~./.ssh/known_hosts
       - name: connect to server
         run: ssh -i id_rsa root@${{ secrets.HOST_ADDR }} "mkdir testest2"
       # - name: Check out repository code

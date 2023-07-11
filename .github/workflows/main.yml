@@ -8,13 +8,10 @@ jobs:
   copy-via-ssh:
     runs-on: ubuntu-latest
     steps:
-      - name: create file with key
-        run: echo "${{ secrets.SSH_KEY }}" > id_rsa
-      - name: mkdir .ssh
-        run: mkdir .ssh
-      - name: add known hosts
-        run: ssh-keyscan -H dreamer20.website > .ssh/known_hosts
-      - name: connect to server
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+            ssh-private-key: ${{ secrets.SSH_KEY }}
+      - name: run command
         run: ssh -i id_rsa root@${{ secrets.HOST_ADDR }} "mkdir testest2"
       # - name: Check out repository code
       #   uses: actions/checkout@v3

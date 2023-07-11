@@ -16,5 +16,5 @@ jobs:
           local: .
           remote: /home/admin/test
           host: ${{ secrets.HOST_ADDR }}
-          user: ${{ secrets.HOST_USR }}
+          username: ${{ secrets.HOST_USR }}
           password: ${{ secrets.SECRET_PASS }}

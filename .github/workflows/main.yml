@@ -13,7 +13,7 @@ jobs:
       - name: Copy via ssh
         uses: garygrossgarten/github-action-scp@v0.8.0
         with:
-          local: .
+          local: flsk
           remote: /home/admin/test
           host: ${{ secrets.HOST_ADDR }}
           username: ${{ secrets.HOST_USR }}

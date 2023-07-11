@@ -1,0 +1,20 @@
+name: Build and push to dist
+run-name: copy-via-ssh
+on:
+  push:
+    branches:
+      - main
+jobs:
+  copy-via-ssh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Copy via ssh
+        uses: garygrossgarten/github-action-scp@v0.8.0
+        with:
+          local: .
+          remove: /home/admin/test
+          host: ${{ secrets.HOST_ADDR }}
+          user: ${{ secrets.HOST_USR }}
+          password: ${{ secrets.SECRET_PASS }}

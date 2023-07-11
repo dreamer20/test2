@@ -8,12 +8,10 @@ jobs:
   copy-via-ssh:
     runs-on: ubuntu-latest
     steps:
-      - name: start user-agent
-        run: eval "$(ssh-agent -s)"
-      - name: add ssh key
-        run: ssh-add - <<<"${{ secrets.SSH_KEY }}"
+      - name: create file with key
+        run: echo "${{ secrets.SSH_KEY }}" > id_rsa
       - name: connect to server
-        run: ssh root@${{ secrets.HOST_ADDR }} "mkdir testest2"
+        run: ssh -i id_rsa root@${{ secrets.HOST_ADDR }} "mkdir testest2"
       # - name: Check out repository code
       #   uses: actions/checkout@v3
       # - name: Copy via ssh

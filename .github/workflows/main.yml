@@ -8,6 +8,8 @@ jobs:
   copy-via-ssh:
     runs-on: ubuntu-latest
     steps:
+      - name: start user-agent
+        run: eval "$(ssh-agent -s)"
       - name: add ssh key
         run: ssh-add - <<<"${{ secrets.SSH_KEY }}"
       - name: connect to server

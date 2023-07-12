@@ -1,18 +1,18 @@
-name: Build and push to dist
-run-name: copy-via-ssh
-on:
-  push:
-    branches:
-      - main
-jobs:
-  copy-via-ssh:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: webfactory/ssh-agent@v0.7.0
-        with:
-            ssh-private-key: ${{ secrets.SSH_KEY }}
-      - name: run command
-        run: ssh -i id_rsa root@${{ secrets.HOST_ADDR }} "mkdir testest2"
+# name: Build and push to dist
+# run-name: copy-via-ssh
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   copy-via-ssh:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: webfactory/ssh-agent@v0.7.0
+#         with:
+#             ssh-private-key: ${{ secrets.SSH_KEY }}
+#       - name: run command
+#         run: ssh -i id_rsa root@$dreamer20.website "mkdir testest2"
       # - name: Check out repository code
       #   uses: actions/checkout@v3
       # - name: Copy via ssh

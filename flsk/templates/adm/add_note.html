@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Add note{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col justify-content-center">
+        <form method="post" style="max-width: 600px;">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="title" class="form-control" id="title">
+            </div>
+            <div class="mb-3">
+                <label for="tags" class="form-label">Tags</label>
+                <input type="text" name="tags" class="form-control" id="tags">
+            </div>
+            <div class="mb-3">
+                <label for="preview" class="form-label">Preview</label>
+                <textarea name="preview" class="form-control" id="preview" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Content</label>
+                <textarea name="content" class="form-control" id="content" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

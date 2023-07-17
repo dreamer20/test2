@@ -1,8 +1,7 @@
 import sqlite3
-
 import click
 from flask import current_app, g
-
+from werkzeug.security import generate_password_hash
 
 def get_db():
     if 'db' not in g:
@@ -31,18 +30,24 @@ def init_db():
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
-    app.cli.add_command(add_note_command)
+    app.cli.add_command(add_user_command)
     app.cli.add_command(get_content_command)
 
-def add_note(md_file):
+
+def add_user(username, password):
     db = get_db()
-    with open(md_file, encoding='utf8') as f:
-        db.execute("INSERT INTO notes (content) VALUES (?)", (f.read(), ))
+    try:
+        db.execute('INSERT INTO user (username, password) VALUES (?, ?)',
+                    (username, generate_password_hash(password)))
         db.commit()
+    except db.IntegrityError:
+        return 'User already registered.'
+    else:
+        return 'User registered.'
 
 def get_content():
     db = get_db()
-    data = db.execute('SELECT * FROM notes').fetchall()
+    data = db.execute('SELECT * FROM note').fetchall()
     return data
 
 @click.command('init-db')
@@ -51,11 +56,12 @@ def init_db_command():
     click.echo('Initialized the database.')
 
 
-@click.command('add_note')
-@click.argument('md_file')
-def add_note_command(md_file):
-    add_note(md_file)
-    click.echo('Note is added.')
+@click.command('add_user')
+@click.argument('username')
+@click.argument('password')
+def add_user_command(username, password):
+    result = add_user(username, password)
+    click.echo(result)
 
 @click.command('get_content')
 def get_content_command():

@@ -18,7 +18,8 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    from . import notes
+    from . import notes, adm
+    app.register_blueprint(adm.bp)
     app.register_blueprint(notes.bp)
     app.add_url_rule('/', endpoint='index')
 

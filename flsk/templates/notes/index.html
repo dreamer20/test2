@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 {% block title %}Notes{% endblock %}
 {% block content %}
+<div class="mb-3">
+    <span class="h5">Теги:</span> 
+    {% for tag in tags %}
+        <a href="{{ url_for('notes.tag', tag=tag['tag']) }}">{{tag['tag']}}</a> 
+    {% endfor %}
+</div>
     {% for note in notes %}
-        {{note| safe}}
+    <div class="mb-3">
+        <h4>
+            <a class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{ url_for('notes.note', id=note['id']) }}">
+                {{note['title']}}
+            </a>
+            {% if g.user['id'] %}
+                <a class="text-decoration-none h6 text-danger" class href="{{ url_for('adm.delete', id=note['id']) }}">delete</a>
+            {% endif %}
+        </h4>
+        {{note['preview']| safe}}
+    </div>
     {% endfor %}
 {% endblock %}
